@@ -20,7 +20,7 @@ export interface ToastData {
   message: string;
 }
 
-export type TabId = 'faucet' | 'info' | 'write' | 'read';
+export type TabId = 'faucet' | 'info' | 'mint';
 
 export interface AccountObj {
   connected: boolean;

@@ -1,29 +1,28 @@
 // src/pages/Dashboard.tsx
 import { useState, useEffect } from 'react';
-import { type TokenInfo, type TabId } from '../types/types';
+import { type TabId } from '../types/types';
 import { StatCard } from '../components/StatCard';
-import { FaucetTab } from '../components/contracts/FaucetTab';
-import { TokenInfoTab } from '../components/contracts/TokenInfoTab';
-// import { WriteTab } from '../components/contracts/WriteTab';
-// import { ReadTab } from '../components/contracts/ReadTab';
-import { formatAmount, formatValue } from '../utils/utils';
+import { FaucetTab } from '../components/Tabs/FaucetTab';
+import { TokenInfoTab } from '../components/Tabs/TokenInfoTab';
+import { formatValue } from '../utils/utils';
 import { useAccount } from '../hooks/useAccount';
 import { useNavigate } from 'react-router-dom';
 import { useReadToken } from '../hooks/specific/useReadToken';
 import { Loading } from '../components/Loading';
+import MintAsOwner from '../components/Tabs/MintAsOwner';
 
-const TABS: { id: TabId; label: string }[] = [
-  { id: 'faucet', label: 'Faucet' },
-  { id: 'info', label: 'Token Info' },
-  { id: 'write', label: 'Write' },
-  { id: 'read', label: 'Read' },
-];
+// const TABS: { id: TabId; label: string }[] = [
+//   { id: 'faucet', label: 'Faucet' },
+//   { id: 'info', label: 'Token Info' },
+//   { id: 'mint', label: 'Mint as Owner' },
+// ];
 
 export const Dashboard = () => {
-  const { Account, handleWalletConnect } = useAccount()
+  const { Account, handleWalletConnect, truncatedAddress } = useAccount()
   const { getViewValues, loading, info } = useReadToken()
   const navigate = useNavigate()
   const [tab, setTab] = useState<TabId>('faucet');
+  const isOwner: boolean = info?.owner?.toLowerCase() === Account.address?.toLowerCase();
 
   const [ready, setReady] = useState(false);
 
@@ -40,12 +39,16 @@ export const Dashboard = () => {
   }, [Account.address, ready]);
 
   useEffect(() => {
-    let cancelled = false;
     getViewValues();
-    return () => { cancelled = true; };
   }, [getViewValues]);
 
   if (!ready || loading || !info) return <Loading />;
+
+  const TABS: { id: TabId; label: string }[] = [
+  { id: 'faucet', label: 'Faucet' },
+  { id: 'info',   label: 'Token Info' },
+  ...(isOwner ? [{ id: 'mint' as TabId, label: 'Mint as Owner' }] : []),
+];
 
   const supplyPct = (Number(info.totalSupply) / Number(info.maxSupply)) * 100;
   // console.log(supplyPct)
@@ -56,13 +59,13 @@ export const Dashboard = () => {
       {/* Grid overlay — same density as Landing */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(127,255,212,0.06) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(127,255,212,0.06) 1px, transparent 1px)
-          `,
-          backgroundSize: '48px 48px',
-        }}
+      // style={{
+      //   backgroundImage: `
+      //     linear-gradient(rgba(127,255,212,0.06) 1px, transparent 1px),
+      //     linear-gradient(90deg, rgba(127,255,212,0.06) 1px, transparent 1px)
+      //   `,
+      //   backgroundSize: '48px 48px',
+      // }}
       />
 
       {/* Glow — top right (mirrored from Landing's top left) */}
@@ -93,7 +96,7 @@ export const Dashboard = () => {
             onClick={handleWalletConnect}
             className="flex items-center cursor-pointer gap-2 bg-primary/5 border border-primary/20 rounded-full px-5 py-2.5">
             <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse shadow-[0_0_6px_#7fffd4]" />
-            <span className="text-primary text-sm tracking-[0.12em] font-medium">LOGOUT</span>
+            <span className="text-primary text-sm tracking-[0.12em] font-medium">{truncatedAddress}</span>
           </button>
         </div>
 
@@ -159,7 +162,7 @@ export const Dashboard = () => {
                 py-2.5 rounded-lg cursor-pointer border-0 transition-all duration-200
                 ${tab === t.id
                   ? 'bg-primary text-black shadow-[0_0_20px_rgba(127,255,212,0.4)]'
-                  : 'bg-transparent text-white/40 hover:text-white/70 hover:bg-white/5'
+                  : 'bg-transparent text-white/60 hover:text-white/70 hover:bg-white/5'
                 }
               `}
             >
@@ -181,8 +184,13 @@ export const Dashboard = () => {
 
           {tab === 'faucet' && <FaucetTab info={info} />}
           {tab === 'info' && <TokenInfoTab info={info} />}
-          {/* {tab === 'write'  && <WriteTab />} */}
-          {/* {tab === 'read'   && <ReadTab />} */}
+          {tab === 'mint' &&
+            <MintAsOwner
+              isOwner={isOwner}
+              decimals={info?.decimals ?? 18}
+              onRefetch={getViewValues}
+            />
+          }
         </div>
 
       </div>

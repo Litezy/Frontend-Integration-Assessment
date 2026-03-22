@@ -1,4 +1,4 @@
-import { useAppKit, useAppKitAccount, useAppKitNetwork } from "@reown/appkit/react";
+import { useAppKit, useAppKitAccount} from "@reown/appkit/react";
 import type { AccountObj } from "../types/types";
 import { useEffect, useMemo } from "react";
 import { useBelzContract } from "./useContract";
@@ -11,6 +11,7 @@ export const useAccount = () => {
     const { address } = useAppKitAccount();
     const { open } = useAppKit()
     const contract = useBelzContract()
+    
     useEffect(() => {
         if (!address) return;
 
@@ -19,7 +20,7 @@ export const useAccount = () => {
             if (!provider) return;
 
             const chainId = await provider.request({ method: 'eth_chainId' });
-            console.log('actual MetaMask chainId:', chainId); // e.g "0x1" for mainnet
+            // console.log('actual MetaMask chainId:', chainId); // e.g "0x1" for mainnet
             const liskSepoliaHex = '0x106a'; // 4202 in hex
 
             if (chainId !== liskSepoliaHex) {

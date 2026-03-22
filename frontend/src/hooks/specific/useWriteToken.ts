@@ -6,7 +6,7 @@ import { ErrorMessage, SuccessMessage } from "../../utils/utils";
 import { formatUnits } from "ethers";
 import { useReadToken } from "./useReadToken";
 
-type RequestResult = | { success: true; amount: string } | { success: false; reason: string };
+export type RequestResult = | { success: true; amount: string } | { success: false; reason: string };
 
 const errorDecoder = ErrorDecoder.create();
 
@@ -54,6 +54,9 @@ export const useWriteToken = () => {
             setLoading(false);
         }
     };
+
+
+   ;
 
     return { requestToken, loading };
 };

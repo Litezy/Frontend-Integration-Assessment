@@ -84,7 +84,7 @@ export const FaucetTab = ({ info }: Props) => {
         >
           1,000
         </p>
-        <p className="text-white/40 text-sm mb-6">BLZ · Once per 24 hours</p>
+        <p className="text-white/60 text-sm mb-6">BLZ · Once per 24 hours</p>
 
         {/* Countdown */}
         {info.timeUntilNextRequest > 0 && connected && (

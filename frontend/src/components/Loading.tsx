@@ -81,7 +81,7 @@ export const Loading = ({ message = 'Loading contract data…' }: Props) => {
 
         {/* Message */}
         <div className="text-center space-y-1">
-          <p className="text-primary/80 text-xs font-bold tracking-[0.2em] uppercase">
+          <p className="text-primary/80 text-sm font-bold tracking-[0.2em] uppercase">
             {message}
           </p>
           <p className="text-white/25 text-[0.6rem] tracking-wider">

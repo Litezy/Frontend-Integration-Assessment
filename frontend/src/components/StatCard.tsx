@@ -30,7 +30,7 @@ export const StatCard = ({ label, value, sub, icon, delay = 0 ,stale =false}: Pr
       <span className="text-white/20 text-base group-hover:text-primary/40 transition-colors duration-300">
         {icon}
       </span>
-      <span className="text-primary/40 text-[0.55rem] font-bold tracking-[0.2em] uppercase">
+      <span className="text-primary/60 text-[0.55rem] font-bold tracking-[0.2em] uppercase">
         {label}
       </span>
     </div>
@@ -45,7 +45,7 @@ export const StatCard = ({ label, value, sub, icon, delay = 0 ,stale =false}: Pr
 
     {/* Sub */}
     {sub && (
-      <p className="text-white/35 text-[0.65rem] tracking-wide">{sub}</p>
+      <p className="text-white/60 text-[0.65rem] tracking-wide">{sub}</p>
     )}
   </div>
 );
