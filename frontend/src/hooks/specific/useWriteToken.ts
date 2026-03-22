@@ -4,14 +4,12 @@ import { useState } from "react";
 import { ErrorDecoder } from "ethers-decode-error";
 import { ErrorMessage, SuccessMessage } from "../../utils/utils";
 import { formatUnits } from "ethers";
-import { useReadToken } from "./useReadToken";
 
 export type RequestResult = | { success: true; amount: string } | { success: false; reason: string };
 
 const errorDecoder = ErrorDecoder.create();
 
 export const useWriteToken = () => {
-    const { getViewValues } = useReadToken()
     const contract = useBelzContract(true);
     const [loading, setLoading] = useState(false);
     const { address } = useAppKitAccount();
@@ -42,7 +40,6 @@ export const useWriteToken = () => {
                 SuccessMessage(`Claimed ${amount} BLZ successfully`);
                 return { success: true, amount };
             }
-            getViewValues()
             SuccessMessage("Tokens claimed successfully");
             return { success: true, amount: "1000" };
 

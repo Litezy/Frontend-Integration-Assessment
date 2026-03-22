@@ -1,20 +1,29 @@
 import { useAppKitAccount } from "@reown/appkit/react";
 import { useBelzContract } from "../useContract";
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { formatUnits } from "ethers";
 import { ErrorMessage } from "../../utils/utils";
 import type { TokenInfo } from "../../types/types";
 
-export const useReadToken = () => {
+export const useReadToken = (trigger: boolean = false) => {
   const contract = useBelzContract();
   const { address } = useAppKitAccount();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);       // full screen loader
+  const [fetching, setFetching] = useState(false);     // silent background refetch
   const [info, setInfo] = useState<TokenInfo | null>(null);
+  const isFirstLoad = useRef(true);
 
   const getViewValues = useCallback(async () => {
     if (!contract) return null;
 
-    setLoading(true);
+    // First load → show full screen loader
+    // Subsequent calls (after write) → silent, no loader
+    if (isFirstLoad.current) {
+      setLoading(true);
+    } else {
+      setFetching(true);
+    }
+
     try {
       const [name, symbol, decimals, totalSupply, owner, maxSupply, requestAmount, requestInterval] =
         await Promise.all([
@@ -43,29 +52,26 @@ export const useReadToken = () => {
         timeUntilNextRequest = Number(time);
       }
 
-      const result = {
-        name,
-        symbol,
+      setInfo({
+        name, symbol,
         decimals: Number(decimals),
         totalSupply: formatUnits(totalSupply, decimals),
         owner,
         maxSupply: formatUnits(maxSupply, decimals),
         requestAmount: formatUnits(requestAmount, decimals),
         requestInterval: Number(requestInterval),
-        balance,
-        canClaim,
-        timeUntilNextRequest,
-      };
-      // console.log(result)
-      setInfo(result)
+        balance, canClaim, timeUntilNextRequest,
+      });
+
     } catch (err) {
       console.error('Failed to read contract:', err);
-      ErrorMessage("Failed to read contract")
-      return null;
+      ErrorMessage("Failed to read contract");
     } finally {
       setLoading(false);
+      setFetching(false);
+      isFirstLoad.current = false; // mark first load done
     }
-  }, [contract, address]);
+  }, [contract, address, trigger]);
 
-  return { getViewValues, loading,info };
+  return { getViewValues, loading, fetching, info };
 };

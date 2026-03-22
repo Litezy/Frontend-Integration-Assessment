@@ -9,7 +9,7 @@ import { useAppKitAccount } from "@reown/appkit/react";
 
 
 
-export const useOwnerFns = (refetch?: () => void) => {
+export const useOwnerFns = () => {
   const contract = useBelzContract(true);
   const { address } = useAppKitAccount();
   const [loading, setLoading] = useState(false);
@@ -40,8 +40,7 @@ export const useOwnerFns = (refetch?: () => void) => {
         .find((e: any) => e?.name === "Mint");
 
       const mintedAmount = event ? formatUnits(event.args._amount, decimals) : amount;
-      SuccessMessage(`${mintedAmount} BLZ tokens minted successfully`);
-      refetch?.(); 
+      SuccessMessage(`${mintedAmount} BLZ tokens minted successfully`); 
       return { success: true, amount: mintedAmount };
 
     } catch (error) {

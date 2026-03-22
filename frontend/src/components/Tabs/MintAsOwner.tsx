@@ -1,7 +1,6 @@
 // src/components/contracts/MintAsOwner.tsx
 import { useState } from 'react';
 import { useOwnerFns } from '../../hooks/specific/useOwner';
-import { useReadToken } from '../../hooks/specific/useReadToken';
 
 interface Props {
     isOwner: boolean;
@@ -10,8 +9,7 @@ interface Props {
 }
 
 const MintAsOwner = ({ isOwner, decimals, onRefetch }: Props) => {
-    const { OwnerMintToken, loading } = useOwnerFns(onRefetch);
-    const { getViewValues } = useReadToken()
+    const { OwnerMintToken, loading } = useOwnerFns();
     const [to, setTo] = useState('');
     const [amount, setAmount] = useState('');
 
@@ -22,7 +20,7 @@ const MintAsOwner = ({ isOwner, decimals, onRefetch }: Props) => {
         if (result!.success) {
             setAmount("")
             setTo("")
-            getViewValues()
+            onRefetch()
         }
     };
 

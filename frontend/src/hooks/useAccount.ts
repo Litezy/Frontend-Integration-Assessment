@@ -1,17 +1,19 @@
-import { useAppKit, useAppKitAccount} from "@reown/appkit/react";
+import { useAppKit, useAppKitAccount } from "@reown/appkit/react";
 import type { AccountObj } from "../types/types";
 import { useEffect, useMemo } from "react";
 import { useBelzContract } from "./useContract";
 import { liskSepolia } from "@reown/appkit/networks";
 import { appkit } from "../connection";
+import { useDisconnect } from "@reown/appkit/react";
 
 
 
 export const useAccount = () => {
     const { address } = useAppKitAccount();
-    const { open } = useAppKit()
+    const { disconnect } = useDisconnect();
     const contract = useBelzContract()
-    
+    const { open } = useAppKit();
+
     useEffect(() => {
         if (!address) return;
 
@@ -37,7 +39,10 @@ export const useAccount = () => {
         [address]
     );
 
-    const handleWalletConnect = () => {
+    const handleWalletDisconnect = async () => {
+        await disconnect()
+    }
+    const handleWalletConnect =  () => {
         open()
     }
 
@@ -49,6 +54,7 @@ export const useAccount = () => {
     const truncatedAddress = address ? `${address.slice(0, 6)}...${address.slice(-4)}` : 'Connect Wallet';
 
     return {
+        handleWalletDisconnect,
         handleWalletConnect,
         truncatedAddress,
         contract,

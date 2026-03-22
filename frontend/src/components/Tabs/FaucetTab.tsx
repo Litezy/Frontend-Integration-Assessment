@@ -7,13 +7,20 @@ import { useWriteToken } from '../../hooks/specific/useWriteToken';
 
 interface Props {
   info: TokenInfo;
+  onRefetch: () => void;
 }
 
-export const FaucetTab = ({ info }: Props) => {
+export const FaucetTab = ({ info, onRefetch }: Props) => {
   const { Account, truncatedAddress } = useAccount();
   const { loading, requestToken } = useWriteToken();
   const connected = Account.connected;;
 
+  const handleRequestToken = async () => {
+    const result = await requestToken()
+    if (result?.success) {
+      onRefetch()
+    }
+  }
 
   return (
     <div className="space-y-4">
@@ -95,7 +102,7 @@ export const FaucetTab = ({ info }: Props) => {
 
         {/* CTA button */}
         <button
-          onClick={requestToken}
+          onClick={handleRequestToken}
           disabled={loading || (connected && !info.canClaim)}
           className="
             bg-primary text-black font-black text-[0.7rem] tracking-widest uppercase
