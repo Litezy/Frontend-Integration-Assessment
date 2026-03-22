@@ -7,8 +7,6 @@ import type { RequestResult } from "./useWriteToken";
 import { useAppKitAccount } from "@reown/appkit/react";
 
 
-
-
 export const useOwnerFns = () => {
   const contract = useBelzContract(true);
   const { address } = useAppKitAccount();

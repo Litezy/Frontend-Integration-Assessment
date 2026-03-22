@@ -1,10 +1,9 @@
-// src/components/Loading.tsx
 
 interface Props {
   message?: string;
 }
 
-export const Loading = ({ message = 'Loading contract data…' }: Props) => {
+export const Loading = ({ message = 'Loading contract data...' }: Props) => {
   return (
     <div className="min-h-screen bg-black relative overflow-hidden flex items-center justify-center">
 

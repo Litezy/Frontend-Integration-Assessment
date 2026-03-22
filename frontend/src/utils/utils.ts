@@ -1,5 +1,4 @@
 import { toast } from "react-toastify";
-
 export const formatSeconds = (s: number) => {
   const h = Math.floor(s / 3600);
   const m = Math.floor((s % 3600) / 60);

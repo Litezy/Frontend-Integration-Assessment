@@ -1,4 +1,4 @@
-// src/components/Countdown.tsx
+
 import { useState, useEffect } from 'react';
 import { formatSeconds } from '../../utils/utils';
 

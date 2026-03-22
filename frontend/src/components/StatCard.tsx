@@ -1,4 +1,3 @@
-// src/components/StatCard.tsx
 import { formatValue } from "../utils/utils";
 
 interface Props {

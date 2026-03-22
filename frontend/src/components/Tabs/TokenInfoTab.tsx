@@ -1,11 +1,9 @@
-// src/components/contracts/TokenInfoTab.tsx
+
 import { type TokenInfo } from '../../types/types';
-import { formatAmount, formatValue } from '../../utils/utils';
+import {  formatValue } from '../../utils/utils';
 
 export const TokenInfoTab = ({ info }: { info: TokenInfo }) => {
-  const pct = info.maxSupply !== '0'
-    ? Math.min(100, (Number(info.totalSupply) / Number(info.maxSupply)) * 100)
-    : 0;
+  
 
   const rows = [
     { label: 'Token Name',      value: info.name },

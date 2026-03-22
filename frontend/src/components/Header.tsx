@@ -1,4 +1,3 @@
-// src/components/Header.tsx
 
 interface Props {
   connected: boolean;

@@ -1,4 +1,4 @@
-// src/types.ts
+
 export interface TokenInfo {
   name: string;
   symbol: string;

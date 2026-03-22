@@ -1,4 +1,3 @@
-// src/pages/Dashboard.tsx
 import { useState, useEffect } from 'react';
 import { type TabId } from '../types/types';
 import { StatCard } from '../components/StatCard';

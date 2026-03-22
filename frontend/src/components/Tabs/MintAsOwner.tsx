@@ -1,4 +1,4 @@
-// src/components/contracts/MintAsOwner.tsx
+
 import { useState } from 'react';
 import { useOwnerFns } from '../../hooks/specific/useOwner';
 
