@@ -93,3 +93,4 @@ VITE_LISK_TESTNET_RPC_URL
 Uses Lisk Sepolia public RPC — `https://rpc.sepolia-api.lisk.com`
 
 > This is a testnet project. Tokens hold no real value.
+> Built with ❤️ by Litezy
