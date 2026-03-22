@@ -14,8 +14,8 @@ const networks: [AppKitNetwork, ...AppKitNetwork[]] = [
 const metadata = {
     name: "Belz Token Faucet",
     description: "Claim free BELZ tokens on Lisk Sepolia testnet",
-    url: "http://localhost:5173",
-    icons: ["https://yourdomain.com/belz-icon.png"],
+    url: "https://belz-token-faucet.vercel.app/",
+    icons: ["https://belz-token-faucet.vercel.app/favicon.ico"],
 };
 
 // 4. Create a AppKit instance
