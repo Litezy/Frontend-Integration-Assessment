@@ -54,7 +54,7 @@ export const Landing: React.FC = () => {
         </div>
 
         {/* Headline */}
-        <h1 className={`text-5xl md:text-6xl lg:text-7xl font-black text-white text-center leading-[1.1] max-w-3xl mb-6 transition-all duration-700 delay-100 translate-y-4`}>
+        <h1 className={`text-4xl md:text-6xl lg:text-7xl font-black text-white text-center leading-[1.1] max-w-3xl mb-6 transition-all duration-700 delay-100 translate-y-4`}>
           Welcome to{' '}
           <span className="text-primary italic" style={{ textShadow: '0 0 32px rgba(127,255,212,0.45)' }}>
             Belz Token
@@ -63,7 +63,7 @@ export const Landing: React.FC = () => {
         </h1>
 
         {/* Description */}
-        <p className={`text-white/50 text-base md:text-lg leading-relaxed text-center max-w-xl mb-14 transition-all duration-700 delay-200`}>
+        <p className={`text-white/50 text-sm md:text-lg leading-relaxed text-center max-w-xl mb-14 transition-all duration-700 delay-200`}>
           Claim free <strong className="text-white/80 font-semibold">BELZ</strong> tokens for
           testing and development on the Sepolia testnet. No gas fees, no complications —
           just connect your wallet and start building.
@@ -76,9 +76,9 @@ export const Landing: React.FC = () => {
             { label: 'Cooldown',  value: '24 Hours' },
             { label: 'Network',   value: 'Lisk-Sepolia'  },
           ].map((stat) => (
-            <div key={stat.label} className="px-8 py-5 bg-white/2 text-center">
-              <p className="text-primary text-lg font-bold tracking-wide">{stat.value}</p>
-              <p className="text-white/30 text-[11px] mt-1 tracking-widest uppercase">{stat.label}</p>
+            <div key={stat.label} className="px-5 py-5 bg-white/2 text-center">
+              <p className="text-primary truncate text-base font-bold tracking-wide">{stat.value}</p>
+              <p className="text-white/30 text-[8px] truncate lg:text-[11px] mt-1 tracking-widest uppercase">{stat.label}</p>
             </div>
           ))}
         </div>
@@ -103,7 +103,7 @@ export const Landing: React.FC = () => {
         </button>
 
         {/* Footnote */}
-        <p className={`text-white/20 text-sm mt-5 tracking-wider transition-all duration-700 delay-500  `}>
+        <p className={`text-white/20 text-xs mt-5 tracking-wider transition-all duration-700 delay-500  `}>
           MetaMask · Coinbase Wallet · WalletConnect supported
         </p>
 

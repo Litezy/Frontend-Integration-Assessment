@@ -45,8 +45,8 @@ const MintAsOwner = ({ isOwner, decimals, onRefetch }: Props) => {
                     </span>
                 </div>
                 <div>
-                    <p className="text-white font-bold text-sm tracking-wide">Mint Tokens</p>
-                    <p className="text-white/30 text-[0.6rem] tracking-[0.15em] uppercase mt-0.5">
+                    <p className="text-white font-bold text-xs md:text-sm tracking-wide">Mint Tokens</p>
+                    <p className="text-white/30 text-[0.5rem] md:text-[0.6rem] tracking-[0.15em] uppercase mt-0.5">
                         Owner · Restricted Access
                     </p>
                 </div>

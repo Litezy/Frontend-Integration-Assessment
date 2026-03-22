@@ -43,10 +43,10 @@ export const TokenInfoTab = ({ info }: { info: TokenInfo }) => {
               ${i % 2 === 1 ? 'bg-primary/2' : ''}
             `}
           >
-            <span className="text-white/60 text-sm font-bold tracking-[0.2em] uppercase">
+            <span className="text-white/60 text-xs md:text-sm font-bold tracking-[0.2em] uppercase">
               {row.label}
             </span>
-            <span className="text-white/80 text-sm font-medium">{row.value}</span>
+            <span className="text-white/80 text-xs md:text-sm font-medium">{row.value}</span>
           </div>
         ))}
       </div>

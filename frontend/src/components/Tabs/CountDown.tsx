@@ -16,7 +16,7 @@ export const CountDown = ({ seconds }: { seconds: number }) => {
   return (
     <div className="space-y-2 w-full">
       <div className="flex items-center justify-between">
-        <span className=" text-sm font-bold tracking-[0.2em] uppercase text-cyan/60">
+        <span className=" text-xs font-bold tracking-[0.2em] text-cyan/60">
           Next Claim In
         </span>
         <span className=" font-bold text-sm text-cyan [text-shadow:0_0_16px_rgba(58,254,240,0.9)] tracking-widest">

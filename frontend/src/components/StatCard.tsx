@@ -20,10 +20,10 @@ export const StatCard = ({ label, value, sub, icon, delay = 0, stale = false, fe
     }}
   >
     {/* Corner accents */}
-    <span className="absolute top-0 left-0 w-4 h-px bg-primary/60" />
+    {/* <span className="absolute top-0 left-0 w-4 h-px bg-primary/60" />
     <span className="absolute top-0 left-0 w-px h-4 bg-primary/60" />
     <span className="absolute bottom-0 right-0 w-4 h-px bg-primary/60" />
-    <span className="absolute bottom-0 right-0 w-px h-4 bg-primary/60" />
+    <span className="absolute bottom-0 right-0 w-px h-4 bg-primary/60" /> */}
 
     {/* Top shimmer bar — only while fetching */}
     {fetching && (
@@ -50,10 +50,10 @@ export const StatCard = ({ label, value, sub, icon, delay = 0, stale = false, fe
     </div>
 
     {/* Value area — spinner overlays the figure while fetching */}
-    <div className="relative mb-1.5 h-8 flex items-center">
+    <div className="relative mb-1.5 flex items-center">
       {/* Actual value — hidden behind overlay when fetching */}
       <p
-        className={`font-black text-2xl text-primary leading-none transition-all duration-500 ${fetching ? 'opacity-0 blur-sm scale-95' : 'opacity-100 blur-0 scale-100'}`}
+        className={`font-black text-xl lg:text-2xl text-primary leading-none transition-all duration-500 ${fetching ? 'opacity-0 blur-sm scale-95' : 'opacity-100 blur-0 scale-100'}`}
         style={{ textShadow: '0 0 20px rgba(127,255,212,0.4)' }}
       >
         {!stale ? formatValue(value) : value}

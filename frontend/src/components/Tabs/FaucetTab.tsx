@@ -43,41 +43,11 @@ export const FaucetTab = ({ info, onRefetch }: Props) => {
         />
 
         {/* Token orb */}
-        <div className="flex justify-center mb-6">
-          <div className="relative">
-            <div
-              className="w-28 h-28 rounded-full flex items-center justify-center"
-              style={{
-                background: 'radial-gradient(circle at 35% 30%, rgba(127,255,212,0.18), rgba(0,0,0,0.95))',
-                border: '1.5px solid rgba(127,255,212,0.35)',
-                boxShadow: '0 0 40px rgba(127,255,212,0.15), 0 0 80px rgba(127,255,212,0.06), inset 0 0 24px rgba(127,255,212,0.05)',
-              }}
-            >
-              <span
-                className="font-black text-primary text-2xl"
-                style={{ textShadow: '0 0 20px rgba(127,255,212,0.9), 0 0 40px rgba(127,255,212,0.4)' }}
-              >
-                BLZ
-              </span>
-            </div>
-            {/* Spinning ring */}
-            <div
-              className="absolute inset-0 rounded-full animate-spin"
-              style={{
-                border: '1px dashed rgba(127,255,212,0.15)',
-                animationDuration: '8s',
-              }}
-            />
-            {/* Ripple ring */}
-            <div
-              className="absolute inset-0 rounded-full animate-ping"
-              style={{
-                border: '1px solid rgba(127,255,212,0.15)',
-                animationDuration: '2.5s',
-              }}
-            />
-          </div>
+        <div className=" w-full flex items-center justify-center  ">
+        <div className="p-1 rounded-full bg-primary mb-4">
+          <img src="/favicon.ico" alt="logo" />
         </div>
+      </div>
 
         {/* Claimable label */}
         <span className="text-primary/60 text-[0.55rem] font-bold tracking-[0.2em] uppercase block mb-2">
@@ -86,12 +56,12 @@ export const FaucetTab = ({ info, onRefetch }: Props) => {
 
         {/* Amount */}
         <p
-          className="font-black text-5xl text-primary leading-none mb-1"
+          className="font-black text-3xl text-primary leading-none mb-1"
           style={{ textShadow: '0 0 20px rgba(127,255,212,0.6), 0 0 40px rgba(127,255,212,0.3)' }}
         >
           1,000
         </p>
-        <p className="text-white/60 text-sm mb-6">BLZ · Once per 24 hours</p>
+        <p className="text-white/60 text-xs mb-6">claim once every 24 hours</p>
 
         {/* Countdown */}
         {info.timeUntilNextRequest > 0 && connected && (
@@ -105,7 +75,7 @@ export const FaucetTab = ({ info, onRefetch }: Props) => {
           onClick={handleRequestToken}
           disabled={loading || (connected && !info.canClaim)}
           className="
-            bg-primary text-black font-black text-[0.7rem] tracking-widest uppercase
+            bg-primary text-black  font-black text-[0.6rem] tracking-widest uppercase
             px-10 py-3.5 rounded-xl cursor-pointer border-0
             shadow-[0_0_24px_rgba(127,255,212,0.3)]
             hover:bg-primary-hover hover:shadow-[0_0_36px_rgba(127,255,212,0.5)]
@@ -153,7 +123,7 @@ export const FaucetTab = ({ info, onRefetch }: Props) => {
               <span className="text-primary/50 text-[0.55rem] font-bold tracking-[0.2em] uppercase block mb-1.5">
                 Your Balance
               </span>
-              <p className="font-black text-2xl text-primary" style={{ textShadow: '0 0 12px rgba(127,255,212,0.4)' }}>
+              <p className="font-black text-base lg:text-xl text-primary" style={{ textShadow: '0 0 12px rgba(127,255,212,0.4)' }}>
                 {formatValue(info.balance)}
                 <span className="text-sm text-white/30 ml-2 font-normal">BLZ</span>
               </p>
@@ -163,7 +133,7 @@ export const FaucetTab = ({ info, onRefetch }: Props) => {
               <span className="text-primary/50 text-[0.55rem] font-bold tracking-[0.2em] uppercase block mb-1.5">
                 Wallet
               </span>
-              <span className="text-sm text-primary bg-primary/5 border border-primary/20 px-3 py-1.5 rounded-full font-medium tracking-wide">
+              <span className="text-xs text-primary bg-primary/5 border border-primary/20 px-3 py-1.5 rounded-full font-medium tracking-wide">
                 {truncatedAddress}
               </span>
             </div>
