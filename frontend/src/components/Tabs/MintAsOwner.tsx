@@ -93,7 +93,7 @@ const MintAsOwner = ({ isOwner, decimals, onRefetch }: Props) => {
                                     value={to}
                                     onChange={e => setTo(e.target.value)}
                                     placeholder="0x..."
-                                    className="flex-1 bg-transparent text-white text-sm font-medium placeholder:text-white/20 outline-none tracking-wide"
+                                    className="flex-1 bg-transparent text-white text-base font-medium placeholder:text-white/20 outline-none tracking-wide"
                                 />
                                 {to && (
                                     <button
@@ -133,7 +133,7 @@ const MintAsOwner = ({ isOwner, decimals, onRefetch }: Props) => {
                                     onChange={e => handleAmount(e.target.value)}
                                     placeholder="Enter amount…"
                                     min="0"
-                                    className="flex-1 bg-transparent text-white text-sm font-medium placeholder:text-white/20 outline-none tracking-wide [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                    className="flex-1 bg-transparent text-white text-base font-medium placeholder:text-white/20 outline-none tracking-wide [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                 />
                                 <span className="text-primary/50 text-sm font-bold tracking-widest">BLZ</span>
                             </div>
