@@ -2,7 +2,7 @@ import { useBelzContract } from "../useContract";
 import { useState } from "react";
 import { ErrorMessage, formatAmountInWei, SuccessMessage } from "../../utils/utils";
 import { ErrorDecoder } from "ethers-decode-error";
-import { ethers, formatUnits } from "ethers";
+import { formatUnits } from "ethers";
 import type { RequestResult } from "./useWriteToken";
 import { useAppKitAccount } from "@reown/appkit/react";
 import { useContractUtils } from "../useContractUtils";
