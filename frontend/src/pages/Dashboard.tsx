@@ -10,11 +10,14 @@ import { useReadToken } from '../hooks/specific/useReadToken';
 import { Loading } from '../components/Loading';
 import MintAsOwner from '../components/Tabs/MintAsOwner';
 import { Header } from '../components/Header';
+import Transfer from '../components/Tabs/Transfer';
+import { useWriteToken } from '../hooks/specific/useWriteToken';
 
 export const Dashboard = () => {
   const { Account, truncatedAddress, handleWalletDisconnect } = useAccount();
   const [refetchTrigger, setRefetchTrigger] = useState(false);
-  const { getViewValues, loading, info, fetching } = useReadToken(refetchTrigger);
+  const { getViewValues, loading, info, fetching, getUserBalance } = useReadToken(refetchTrigger);
+  const { transferToken } = useWriteToken(async () => { await getUserBalance(); });
   const navigate = useNavigate();
   const [tab, setTab] = useState<TabId>('faucet');
   const isOwner: boolean = info?.owner?.toLowerCase() === Account.address?.toLowerCase();
@@ -27,7 +30,8 @@ export const Dashboard = () => {
   const TABS: { id: TabId; label: string }[] = [
     { id: 'faucet', label: 'Faucet' },
     { id: 'info', label: 'Token Info' },
-    { id: 'mint' as TabId, label: 'Mint as Owner' },
+    { id: 'send', label: 'Send Tokens' },
+    { id: 'mint', label: 'Mint as Owner' },
   ];
 
   useEffect(() => {
@@ -61,13 +65,13 @@ export const Dashboard = () => {
       {/* Grid overlay */}
       <div
         className="absolute inset-0 pointer-events-none"
-        // style={{
-        //   backgroundImage: `
-        //     linear-gradient(rgba(127,255,212,0.04) 1px, transparent 1px),
-        //     linear-gradient(90deg, rgba(127,255,212,0.04) 1px, transparent 1px)
-        //   `,
-        //   backgroundSize: '48px 48px',
-        // }}
+      // style={{
+      //   backgroundImage: `
+      //     linear-gradient(rgba(127,255,212,0.04) 1px, transparent 1px),
+      //     linear-gradient(90deg, rgba(127,255,212,0.04) 1px, transparent 1px)
+      //   `,
+      //   backgroundSize: '48px 48px',
+      // }}
       />
 
       {/* Glow — top right */}
@@ -87,6 +91,7 @@ export const Dashboard = () => {
         handleWalletDisconnect={handleWalletDisconnect}
         setShowDisconnect={setShowDisconnect}
         showDisconnect={showDisconnect}
+        address={Account.address}
         truncatedAddress={truncatedAddress}
       />
 
@@ -171,6 +176,7 @@ export const Dashboard = () => {
 
           {tab === 'faucet' && <FaucetTab info={info} onRefetch={triggerRefetch} />}
           {tab === 'info' && <TokenInfoTab info={info} />}
+          {tab === 'send' && <Transfer info={info} transferToken={transferToken} />}
           {tab === 'mint' && (
             <MintAsOwner
               isOwner={isOwner}

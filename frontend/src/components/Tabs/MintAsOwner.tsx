@@ -11,18 +11,27 @@ interface Props {
 const MintAsOwner = ({ isOwner, decimals, onRefetch }: Props) => {
     const { OwnerMintToken, loading } = useOwnerFns();
     const [to, setTo] = useState('');
+    const [rawAmount, setRawAmount] = useState('')
     const [amount, setAmount] = useState('');
 
 
     const handleSubmit = async () => {
         if (!to || !amount || Number(amount) <= 0) return;
-        const result = await OwnerMintToken(to, amount, decimals);
+        const result = await OwnerMintToken(to, rawAmount, decimals);
         if (result!.success) {
             setAmount("")
+            setRawAmount("")
             setTo("")
             onRefetch()
         }
     };
+
+    const handleAmount = (value: string) => {
+        const raw = value.replace(/[^0-9]/g, '');
+        setRawAmount(raw);
+        const formatted = raw.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        setAmount(formatted);
+    }
 
     return (
         <div className="space-y-5">
@@ -119,9 +128,9 @@ const MintAsOwner = ({ isOwner, decimals, onRefetch }: Props) => {
                                     <path d="M12 6v6l4 2" />
                                 </svg>
                                 <input
-                                    type="number"
+                                    type="text"
                                     value={amount}
-                                    onChange={e => setAmount(e.target.value)}
+                                    onChange={e => handleAmount(e.target.value)}
                                     placeholder="Enter amount…"
                                     min="0"
                                     className="flex-1 bg-transparent text-white text-sm font-medium placeholder:text-white/20 outline-none tracking-wide [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
@@ -135,7 +144,7 @@ const MintAsOwner = ({ isOwner, decimals, onRefetch }: Props) => {
                             {['1,000', '10,000', '100,000', '1,000,000'].map(preset => (
                                 <button
                                     key={preset}
-                                    onClick={() => setAmount(preset.replace(/,/g, ''))}
+                                    onClick={() => handleAmount(preset.replace(/,/g, ''))}
                                     className="text-[0.6rem] font-bold tracking-wide text-primary/50 border border-primary/15 rounded-full px-3 py-1 hover:bg-primary/10 hover:text-primary hover:border-primary/30 transition-all duration-200 cursor-pointer"
                                 >
                                     {preset}
@@ -168,7 +177,7 @@ const MintAsOwner = ({ isOwner, decimals, onRefetch }: Props) => {
                                 <div className="flex justify-between items-center">
                                     <span className="text-white/60 text-sm">Amount</span>
                                     <span className="text-primary text-sm font-bold">
-                                        {Number(amount).toLocaleString()} BLZ
+                                        {amount} BLZ
                                     </span>
                                 </div>
 

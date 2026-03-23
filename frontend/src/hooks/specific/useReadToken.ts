@@ -4,6 +4,7 @@ import { useCallback, useRef, useState } from "react";
 import { formatUnits } from "ethers";
 import { ErrorMessage } from "../../utils/utils";
 import type { TokenInfo } from "../../types/types";
+import { handleCustomErrors } from "../../errors/CustomError";
 
 export const useReadToken = (trigger: boolean = false) => {
   const contract = useBelzContract();
@@ -69,9 +70,26 @@ export const useReadToken = (trigger: boolean = false) => {
     } finally {
       setLoading(false);
       setFetching(false);
-      isFirstLoad.current = false; // mark first load done
+      isFirstLoad.current = false;
     }
   }, [contract, address, trigger]);
 
-  return { getViewValues, loading, fetching, info };
+
+
+  const getUserBalance = async () => {
+    if (!contract) return;
+    if (!address) return ErrorMessage("Address missing")
+    if (!info) return;
+    try {
+      const balance = await contract.balanceOf(address)
+      const bal = formatUnits(balance, 18);
+      setInfo(prev => prev ? { ...prev, balance: bal } : prev);
+    } catch (error) {
+      await handleCustomErrors(error)
+    }
+  }
+
+
+
+  return { getViewValues, getUserBalance, loading, fetching, info };
 };

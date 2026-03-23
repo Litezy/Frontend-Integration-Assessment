@@ -1,13 +1,16 @@
+import {  CopyIcon } from "lucide-react";
 import type { Dispatch, SetStateAction } from "react";
+import { copyToClipboard } from "../utils/utils";
 
 interface Props {
   truncatedAddress: string | null;
   showDisconnect: boolean;
   handleWalletDisconnect: () => void;
-  setShowDisconnect:Dispatch<SetStateAction<boolean>>
+  setShowDisconnect: Dispatch<SetStateAction<boolean>>
+  address:string | null;
 }
 
-export const Header = ({ handleWalletDisconnect,setShowDisconnect, truncatedAddress, showDisconnect }: Props) => (
+export const Header = ({ handleWalletDisconnect,address, setShowDisconnect, truncatedAddress, showDisconnect }: Props) => (
   <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 backdrop-blur-md" style={{ background: 'rgba(0,0,0,0.8)' }}
   >
     <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
@@ -54,9 +57,14 @@ export const Header = ({ handleWalletDisconnect,setShowDisconnect, truncatedAddr
             style={{ background: 'rgba(5,10,8,0.95)', backdropFilter: 'blur(32px)' }}
           >
             {/* Address row */}
-            <div className="px-4 py-3 border-b border-white/5">
-              <p className="text-white/60 text-[0.55rem] tracking-widest  mb-1">Connected Account</p>
-              <p className="text-white/70 text-sm font-mono">{truncatedAddress}</p>
+            <div className="px-4 py-3 flex items-start justify-between border-b border-white/5 border">
+              <div className="">
+                <p className="text-white/60 text-[0.55rem] tracking-widest  mb-1">Connected Account</p>
+                <p className="text-white/70 text-sm font-mono">{truncatedAddress}</p>
+              </div>
+              <p onClick={()=> address && copyToClipboard(address,"Address")}>
+                <CopyIcon className="text-sm text-primary cursor-pointer"/>
+              </p>
             </div>
 
             {/* Network row */}

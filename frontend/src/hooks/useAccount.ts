@@ -52,11 +52,13 @@ export const useAccount = () => {
     }
 
     const truncatedAddress = address ? `${address.slice(0, 6)}...${address.slice(-4)}` : 'Connect Wallet';
+    
 
     return {
         handleWalletDisconnect,
         handleWalletConnect,
         truncatedAddress,
+        address,
         contract,
         Account
     }

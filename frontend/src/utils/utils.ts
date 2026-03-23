@@ -1,3 +1,4 @@
+import { ethers } from "ethers";
 import { toast } from "react-toastify";
 export const formatSeconds = (s: number) => {
   const h = Math.floor(s / 3600);
@@ -30,4 +31,17 @@ export const formatValue = (value: string | number): string => {
   const num = Number(value);
   if (isNaN(num)) return '0';
   return num.toLocaleString('en-US', { maximumFractionDigits: 2 });
+};
+
+
+export const formatAmountInWei = (amount: string, decimals = 18) => ethers.parseUnits(amount.toString(), decimals)
+
+export const copyToClipboard = async (text: string,name:string = "text"): Promise<boolean> => {
+  try {
+    await navigator.clipboard.writeText(text);
+    SuccessMessage(`${name} copied successfully`)
+    return true;
+  } catch {
+    return false;
+  }
 };
